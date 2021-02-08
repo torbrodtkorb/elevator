@@ -4,9 +4,11 @@ top = $(shell pwd)
 builddir  = $(top)/build
 target = $(builddir)/elevator
 
-# Include Makefiles, this will update headders and src with a relative path 
-include $(top)/include/Makefile
-include $(top)/source/Makefile
+# Add the sources
+src += source/main.c
+
+# Add the headers
+headers += include/types.h
 
 deps_glob = $(addprefix $(top)/, $(headers))
 src_glob = $(addprefix $(top)/, $(src))
