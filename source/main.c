@@ -48,21 +48,22 @@ void client_init() {
     // Fill the address with zero
     memset(&server_addr, 0x00, sizeof(server_addr));
 
-    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1"); 
+    //For broadcast use: "255.255.255.255"
+    server_addr.sin_addr.s_addr = inet_addr("10.100.23.170"); 
     server_addr.sin_port = htons(5000); 
     server_addr.sin_family = AF_INET; 
 
     // Create UDP socket 
-    int s = socket(AF_INET, SOCK_DGRAM, 0); 
+    int s = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    
+    // For broadcast: uncoment these two lines
+    //int broadcast = 1;
+    //int err = setsockopt(s, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast));
 
-    // Connect
-    if(connect(s, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-        printf("\n Error : Connect Failed \n"); 
-    } 
-  
+
     // Send UDP
     while (1) {
-        sendto(s, "HELLO", 1000, 0, (struct sockaddr*)NULL, sizeof(server_addr));
+        sendto(s, "HELLO", 1000, 0, (struct sockaddr*)&server_addr, sizeof(server_addr));
         usleep(500000);
     }
 
