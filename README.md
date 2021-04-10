@@ -1,17 +1,15 @@
-## Summary
-
-Real-time programming elevator project
-
 ### Build
 
-In order to build, export the arguments first
+To start server:
 
 ```
-> export arg="<ip address> <port>"
+> export port=<server_port> floors=<number_of_floors>
+> make server
 ```
 
-Then run
+To start elevator:
 
 ```
+> export port=<server_port> floors=<number_of_floors>
 > make
 ```
